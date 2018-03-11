@@ -7,7 +7,7 @@
 </p>
 
 ### Выгрузка на Heroku 
-<a href="https://dashboard.heroku.com/new?template=https://github.com/sozdayka/journallabs.git">
+<a href="https://dashboard.heroku.com/new?template=https://github.com/sozdayka/JournalLabs.WebNew.git">
 <img src="https://www.herokucdn.com/deploy/button.svg" alt="Deploy on Heroku">
 </a>
 
