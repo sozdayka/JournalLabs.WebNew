@@ -35,9 +35,11 @@ var Spark = {
       $('.page-body').toggleClass('collapsed');
     });
     $('.sidebar-open').on('click', function(){
+      alert("open");
       $('.page-sidebar').removeClass('toggled');
     });
     $('.sidebar-close').on('click', function(){
+      alert("close");
       $('.page-sidebar').addClass('toggled');
     });
 
@@ -122,8 +124,8 @@ var Spark = {
     this.removeLoadingScreen();
     this.animateWidgetsAfterPageLoad();
     this.createWidgets();
-    /*this.createSidebar();
-    this.createSearch();
+    this.createSidebar();
+    /*this.createSearch();
     this.createSnackbars();
    
     this.handleElementsOnResizing();
