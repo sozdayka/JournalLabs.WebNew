@@ -5,6 +5,8 @@ import { Subscription } from 'rxjs/Subscription';
 import { isPlatformServer } from '@angular/common';
 import { LinkService } from './shared/link.service';
 
+import { HeaderService } from './shared/header-data.service';
+
 // i18n support
 import { TranslateService } from '@ngx-translate/core';
 import { REQUEST } from './shared/constants/request';
@@ -17,6 +19,9 @@ import { REQUEST } from './shared/constants/request';
 })
 export class AppComponent implements OnInit, OnDestroy {
 
+    messageTitle:string;
+    messageDes:string;
+
     // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
     private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
     // If no Title is provided, we'll use a default one before the dash(-)
@@ -25,6 +30,7 @@ export class AppComponent implements OnInit, OnDestroy {
     private routerSub$: Subscription;
 
     constructor(
+        private data: HeaderService,
         private router: Router,
         private activatedRoute: ActivatedRoute,
         private title: Title,
@@ -47,6 +53,9 @@ export class AppComponent implements OnInit, OnDestroy {
     ngOnInit() {
         // Change "Title" on every navigationEnd event
         // Titles come from the data.title property on all Routes (see app.routes.ts)
+        this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle)
+        this.data.currentMessageDes.subscribe(messageDes => this.messageDes = messageDes)
+
         this._changeTitleOnNavigation();
     }
 

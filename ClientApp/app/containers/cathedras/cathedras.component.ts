@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { LogService } from '../../shared/log.service';
 import { CathedraService } from '../../shared/cathedra.service';
 import { Cathedra } from '../../models/Cathedra';
+
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
   selector: 'cathedras',
   templateUrl: 'cathedras.component.html'
@@ -16,8 +19,11 @@ export class CathedrasComponent implements OnInit {
   public newCathedra: Cathedra = new Cathedra();
   public cathedrasArray: Cathedra[]= [];
 
-  public constructor(
+  messageTitle:string;
+  messageDes:string;
 
+  public constructor(
+    private data: HeaderService,
     public logService: LogService,
     public cathedraService: CathedraService
   ) {
@@ -25,6 +31,10 @@ export class CathedrasComponent implements OnInit {
 
   public ngOnInit(): void {
     this.loadCathedras();
+
+    this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+    this.data.changeMessage("Список дисциплин","Работа с дисциплинами")
+
   }
   public loadCathedras() {
     this.cathedraService.getCathedras().subscribe(data => {

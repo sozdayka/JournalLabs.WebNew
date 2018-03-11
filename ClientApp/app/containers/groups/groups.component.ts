@@ -3,6 +3,9 @@ import { Component, OnInit } from '@angular/core';
 import { LogService } from '../../shared/log.service';
 import { GroupService } from '../../shared/group.service';
 import { Group } from '../../models/Group';
+
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
   selector: 'groups',
   templateUrl: 'groups.component.html'
@@ -18,9 +21,11 @@ export class GroupsComponent implements OnInit {
   public groupsArray: Group[]= [];
 
 
+  messageTitle:string;
+  messageDes:string;
 
   public constructor(
-
+    private data: HeaderService,
     public logService: LogService,
     public groupService: GroupService
   ) {
@@ -28,6 +33,9 @@ export class GroupsComponent implements OnInit {
 
   public ngOnInit(): void {
     this.loadGroups();
+    this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+    this.data.changeMessage("Список групп","Работа с группами")
+
   }
   public loadGroups() {
     this.groupService.getGroups().subscribe(data => {

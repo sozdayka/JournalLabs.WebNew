@@ -25,6 +25,8 @@ import { SubgroupStudents } from '../../models/subgroupStudents';
 
 import { StudentLabBlocksViewModel } from '../../models/studentLabBlocksViewModel';
 
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
   selector: 'journal',
   templateUrl: 'journal.component.html'
@@ -86,6 +88,8 @@ export class JournalComponent implements OnInit {
     count: number
   }[]=[];
 
+  messageTitle:string;
+  messageDes:string;
 
   public isTotal:boolean = true; 
 
@@ -98,7 +102,8 @@ export class JournalComponent implements OnInit {
     public teacherJournalService: TeacherJournalService,
     public logService: LogService,
     public groupService: GroupService,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private data: HeaderService
   ) {
   }
 
@@ -136,6 +141,8 @@ export class JournalComponent implements OnInit {
         this.assistantList = response;
       });
     });
+
+  
  
   }
 
@@ -194,6 +201,9 @@ export class JournalComponent implements OnInit {
         });
       }
       //---------------
+      this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+      this.data.changeMessage("Журнал "+this.journalViewModel.JournalModel.LessonName+"("+this.journalViewModel.JournalModel.GroupName+")","Работа с журналами")
+  
       this.statAvgMark();
 
       this.getLastModify();

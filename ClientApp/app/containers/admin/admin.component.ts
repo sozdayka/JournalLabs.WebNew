@@ -6,18 +6,26 @@ import { LogService } from '../../shared/log.service';
 import { CathedraService } from '../../shared/cathedra.service';
 import { Cathedra } from '../../models/Cathedra';
 
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
     selector: 'admin',
     templateUrl: './admin.component.html'
 })
 export class AdminComponent implements OnInit {
+  messageTitle:string;
+  messageDes:string;
+
   public teacherModel: User = { Id: "", Login: "", Password: "111111", Role: "Teacher", CathedraId:"" };
   public cathedrasList: Cathedra[] = [];
-  constructor(private userService: UserService,
+  constructor(private data: HeaderService,private userService: UserService,
     private logService: LogService,
     private cathedraService: CathedraService) { }
   ngOnInit() {
     this.loadCathedras();
+    this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+    this.data.changeMessage("Добавление нового пользователя","Работа с пользователями")
+
   }
 
   public loadCathedras() {

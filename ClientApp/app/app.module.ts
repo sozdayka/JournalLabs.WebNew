@@ -48,6 +48,7 @@ import { GroupService } from './shared/group.service';
 import { CathedraService } from './shared/cathedra.service';
 import { StudentGroupService } from './shared/student-group.service';
 import { SearchDataService } from './shared/search-data.service';
+import { HeaderService } from './shared/header-data.service';
 
 import { FilterPipe } from './shared/filter.pipe';
 import { ViewLogsComponent } from './containers/view-logs/view-logs.component';
@@ -250,7 +251,8 @@ export function createTranslateLoader(http: Http, baseHref) {
       CathedraService,
       StudentGroupService,
       
-      SearchDataService
+      SearchDataService,
+      HeaderService
     ]
 })
 export class AppModuleShared {

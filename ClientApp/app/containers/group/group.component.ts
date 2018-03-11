@@ -14,12 +14,16 @@ import { Student } from '../../models/Student';
 import { StudentGroupService } from '../../shared/student-group.service';
 import { AddStudentToGroup } from '../../models/addStudentToGroup';
 
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
   selector: 'group',
   templateUrl: 'group.component.html'
 })
 export class GroupComponent implements OnInit {
- 
+  messageTitle:string;
+  messageDes:string;
+  
   groupInfo: Group = new Group();
   student: AddStudentToGroup = new AddStudentToGroup();
   groupStudents: Student[] = [];
@@ -34,7 +38,7 @@ export class GroupComponent implements OnInit {
 
   public constructor(
     private route: ActivatedRoute,
-
+    private data: HeaderService,
     public logService: LogService,
     public groupService: GroupService,
     public studentService: StudentService,
@@ -48,12 +52,16 @@ export class GroupComponent implements OnInit {
       this.groupId = params['groupid'];
       this.loadGroupInfo(this.groupId);
       this.loadStudents();
-    });    
+    }); 
+
   }
 
   public loadGroupInfo(groupId: string) {
     this.groupService.getGroup(groupId).subscribe(data => {
       this.groupInfo = data;
+      this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+      this.data.changeMessage("Редактирование группы: "+this.groupInfo.Name,"Работа с группами")
+     
       console.log("Group loaded successfully");
     });
   }

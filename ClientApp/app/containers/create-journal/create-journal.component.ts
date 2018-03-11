@@ -14,6 +14,8 @@ import { Student } from '../../models/Student';
 
 import { AddStudentToJournalViewModel } from "../../models/addStudentToJournalViewModel";
 
+import { HeaderService } from '../../shared/header-data.service';
+
 @Component({
   selector: 'create-journal',
   templateUrl: './create-journal.component.html'
@@ -21,10 +23,13 @@ import { AddStudentToJournalViewModel } from "../../models/addStudentToJournalVi
 export class CreateJournalComponent {
   public studntOfGroupArray: {id:string, groupName:string, students: Student} []=[];
 
+  messageTitle:string;
+  messageDes:string;
+
   public assistantList: User[] = [];
   public labBlockCount: number = 0;
   public createJournalViewModel: CreateJournalViewModel = new CreateJournalViewModel();
-  public constructor(public journalService: JournalService, public userService: UserService, public logService: LogService, public groupService: GroupService,public studentGroupService: StudentGroupService ,public studentService:StudentService) {
+  public constructor(private data: HeaderService,public journalService: JournalService, public userService: UserService, public logService: LogService, public groupService: GroupService,public studentGroupService: StudentGroupService ,public studentService:StudentService) {
     var assistants = this.userService.getAllAssistants().subscribe(response => {
       this.assistantList = response;
     });
@@ -32,6 +37,9 @@ export class CreateJournalComponent {
     
   }
   public ngOnInit(): void {
+    this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+    this.data.changeMessage("Добавление нового журнала","Работа с журналами")
+
   }
 
 
