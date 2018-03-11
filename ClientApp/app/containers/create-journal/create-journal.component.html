@@ -1,0 +1,71 @@
+<div class="col-md-12">
+    <div class="card card-default widget animated" style="animation-delay: -0.07s;">
+      <div class="card-heading">
+        <div class="card-controls">
+          <a href="#" class="widget-minify"><i class="fa fa-chevron-up"></i></a>
+          <a href="#" class="widget-close"><i class="fa fa-times"></i></a>
+        </div>
+        <h3 class="card-title">Blank Page</h3>
+      </div>
+      <div class="card-body">
+        
+
+
+<h1>Новый журнал:</h1><!--New journal-->
+<br />
+<p>Название предмета:</p><!--Lesson Name:-->
+<input type="text" [(ngModel)]="createJournalViewModel.LessonName" name="LessonName" />
+<br />
+<br />
+<p>Название группы:</p><!--Lesson Name:-->
+<input type="text" [(ngModel)]="createJournalViewModel.GroupName" name="GroupName" />
+<br />
+
+<p>Введите количество видов работ:</p><!--Input count lab blocks:-->
+<input type="number" [(ngModel)]="labBlockCount" (keyup)="fillLabBlockSettingsArray()" name="LabBlocksCount" />
+<br />
+<table *ngIf="createJournalViewModel.LabBlocksSettings.length!=0">
+  <tr>
+    <td>Название вида работы</td><!--FirstDate-->
+    <td style="padding-left: 20px;">Дедлайн для сдачи</td><!--FirstMark-->
+    <td style="padding-left: 20px;">Добавить блок переcдачи</td><!--FirstMark-->
+    <td style="padding-left: 20px;">Отображать ли данный вид работы</td><!--FirstMark-->
+    <td style="padding-left: 20px;">Учитывать эту оценку для итоговой оценки</td><!--SecondDate-->
+    <td style="padding-left: 20px;">Отображать ли данный вид работы для студента</td><!--SecondMark-->
+    <td style="padding-left: 20px;">Булевое ли это поле</td>
+  </tr>
+  <ng-container *ngFor=" let key of createJournalViewModel.LabBlocksSettings; let i = index">
+    <tr>
+      <td><span>Вид работы - {{i}}</span></td>
+      <td style="text-align: center;"><input type="text" [(ngModel)]="key.Deadline"></td>
+      <td style="text-align: center;"><input type="checkbox" [(ngModel)]="key.IsSecondBlock"></td>
+      <td style="text-align: center;"><input type="checkbox" [(ngModel)]="key.IsKindOfWorkVisible"></td>
+      <td style="text-align: center;"><input type="checkbox" [(ngModel)]="key.IsCalculateMark" [disabled]="key.IsBoolField"></td>
+      <td style="text-align: center;"><input type="checkbox" [(ngModel)]="key.IsVisibleToStudent"></td>
+      <td style="text-align: center;"><input type="checkbox" [ngModel]="key.IsBoolField" (ngModelChange)="selectBooleanTypeField(key,$event)"></td>
+  </ng-container>
+</table>
+
+<h4>Выберите тип предмета</h4>
+<input type="radio" name="typejournals" [value]="false" [(ngModel)]="createJournalViewModel.IsExam" id="typj1"><label for="typj1">Зачет</label>
+<br>
+<input type="radio" name="typejournals" [value]="true" [(ngModel)]="createJournalViewModel.IsExam" id="typj2"><label for="typj2">Экзамен</label>
+<br />
+
+
+<!-- Group List -->
+<group-students (groupStudents)="StudentsChange($event)" [journalViewModel]=""></group-students>
+<br />
+<p>Выберите ассистентов которые будут иметь доступ к журналу:</p><!--Input count lab blocks:-->
+<ul style="width: 300px; height: 200px; overflow: auto">
+  <li *ngFor=" let assistant of assistantList"><input type="checkbox" (click)="addAssistant($event,assistant.Id)"> {{assistant.Login}}</li>
+</ul>
+
+
+<button (click)="createJournal()">Создать журнал</button><!--Create journal-->
+
+
+
+</div>
+</div>
+</div><!-- /.col-md-12 -->

@@ -1,0 +1,148 @@
+<ul class="nav nav-pills nav-stacked" id="sidebar-stacked">
+  <li class="d-md-none">
+    <a class="sidebar-close" href="#">
+      <i class="ion ion-ios-arrow-left"></i>
+    </a>
+  </li>
+
+  <li class="nav-item" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+    <a [routerLink]="['/admin']" class="nav-link">
+      <i class="ion ion-ios-home"></i>
+      <span class="nav-text"> {{ 'Admin' | translate }} </span>
+    </a>
+  </li>
+  
+  <li class="nav-item" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+    <a class="nav-link" [routerLink]="['/cathedras']">
+      <i class="ion ion-clipboard"></i>
+      <span class="nav-text">  Список дисциплин </span><!--List cathedras-->
+    </a>
+  </li>
+  <li class="nav-item" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+    <a class="nav-link" [routerLink]="['/groups']">
+      <i class="ion ion-person-stalker"></i>
+      <span class="nav-text">  Список групп </span><!--List groups-->
+    </a>
+  </li>
+  <li class="nav-item" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+      <a class="nav-link" [routerLink]="['/view-logs']">
+        <i class="ion ion-lock-combination"></i>
+      <span class="nav-text">  Просмотр логов </span><!--List groups-->
+      </a>
+    </li>
+  <li class="nav-item" *ngIf="currentRole=='Teacher'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+    <a class="nav-link" [routerLink]="['/create-journal']">
+      <i class="ion ion-ios-book"></i>
+      <span class="nav-text"> Создать журнал </span><!--Student journals-->
+    </a>
+  </li>
+  <li class="nav-item" *ngIf="currentRole!=''" [routerLinkActive]="['link-active']" (click)="signOut()">
+    <a class="nav-link">
+      <i class="ion ion-key"></i>
+      <span class="nav-text"> Выйти с аккаунта </span><!--Sign Out-->
+    </a>
+  </li>
+  <li class="nav-item" *ngIf="currentRole==''" [routerLinkActive]="['link-active']" (click)="collapseMenu()">
+    <a class="nav-link" [routerLink]="['/sign-in']">
+      <i class="ion ion-ios-locked"></i>
+      <span class="nav-text"> Войти в аккаунт </span><!--Sign In-->
+    </a>
+    Если Вы являетесь студентом, то можно воспользоватся поиском для просмотра ваших оценок
+  </li>
+
+  
+  <ng-container *ngIf="filteredJournals.length!=0 && (currentRole=='Teacher'||currentRole=='Assistant')">
+    
+      <li class="nav-item"><div class="mini-submenu" *ngIf="!menulist" (click)="toggleMenu()">
+          Фильтр по журналам
+      </div></li>
+    
+    <li class="nav-item active">
+      <a class="nav-container dropdown-toggle active" data-parent="#sidebar-stacked" data-toggle="collapse" href="#p5" aria-expanded="true">
+        <i class="ion ion-ios-list"></i>
+        <span class="nav-text">Список Журналов</span>
+      </a>
+      <ul class="nav nav-pills nav-stacked in collapse show" id="p5" >
+
+
+        <li class="nav-item" *ngFor="let journal of filteredJournals ; index as i"  id="teacher{{i}}" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+          <a class="nav-link" [routerLink]="['/journal']" [queryParams]="{ journalId: journal.Id }">
+            Журнал - {{journal.LessonName}}({{journal.GroupName}})<!--Teacher-->
+            
+          </a>
+        </li>
+        
+      </ul>
+    </li>
+  </ng-container>
+{{message}}
+  <ng-container *ngIf="studentJournals.length!=0">
+    
+      <li class="nav-item active">
+        <a class="nav-container dropdown-toggle active" data-parent="#sidebar-stacked" data-toggle="collapse" href="#p5" aria-expanded="true">
+          <i class="ion ion-search"></i>
+          <span class="nav-text">Результат поиска</span>
+        </a>
+        <ul class="nav nav-pills nav-stacked in collapse show" id="p5">
+  
+  
+          <li class="nav-item" *ngFor=" let journal of studentJournals;let i=index" id="student{{i}}" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}" (click)="collapseMenu()">
+            <a class="nav-link" [routerLink]="['/journal']" [queryParams]="{ journalId: journal.JournalId,studentId:journal.StudentId }">
+              Студент - {{journal.LessonName}}<!--Teacher-->
+              
+            </a>
+          </li>
+          
+        </ul>
+      </li>
+    </ng-container>
+</ul>
+
+
+<!-- filter sidebar -->
+<ng-container *ngIf="teacherJournals.length!=0 && (currentRole=='Teacher'||currentRole=='Assistant')">
+  <div class="sidebar">
+  
+      <div class="list-group" *ngIf="menulist">
+          <div id="sidebar-wrapper">
+              <ul class="sidebar-nav">
+                <a id="menu-close" (click)="toggleMenu()"  class="btn btn-success btn-lg btn-block">Скрыть фильтр <i class="glyphicon glyphicon-remove"></i></a>
+                <a id="menu-close" (click)="clearFilterSelected()" class="btn btn-default btn-lg btn-block">Очистить фильтр <i class="glyphicon glyphicon-remove"></i></a>
+                <br><br>
+                <fieldset>
+                    <legend>Фильтр по дисциплинам</legend>
+                    
+                    <div class="panel panel-default">
+                      <div class="panel-body">
+                        <p *ngFor=" let lesson of lessonArray;let i=index" id="teacher{{i}}" >
+                            <input  type="checkbox" name="predmaetfill" (change)="getFilterSelected()"
+                                   [(ngModel)]="lesson.selected"
+                             value="{{lesson.name}}" id="predmetfilter{{i}}" /> <label for="predmetfilter{{i}}"> {{lesson.name}} </label>
+                        </p>
+                      </div>
+                    </div>
+                    
+                </fieldset>
+                <fieldset>
+                  <legend>Фильтр по группам</legend>
+                  
+                  <div class="panel panel-default">
+                    <div class="panel-body">
+                      <p *ngFor=" let group of groupsArray;let i=index" id="teacher{{i}}" >
+                          <input  type="checkbox" name="predmaetfill" (change)="getFilterSelected()"
+                                 [(ngModel)]="group.selected"
+                           value="{{group.name}}" id="predmetfilter{{i}}" /> <label for="predmetfilter{{i}}"> {{group.name}} </label>
+                      </p>
+                    </div>
+                  </div>
+                  
+              </fieldset>
+                 
+              </ul>
+            </div>
+            
+          
+        
+      </div>
+    </div>
+  </ng-container>

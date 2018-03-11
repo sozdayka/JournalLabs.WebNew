@@ -1,0 +1,54 @@
+<div class="col-md-12">
+
+
+
+    <div class="card card-default widget animated" style="animation-delay: -0.07s;">
+        <div class="card-heading">
+          <div class="card-controls">
+            
+          </div>
+
+        </div>
+        <div class="card-body">
+            <div class="form-inline">
+                <label for="inlineFormInputName2">Сортировка логов по </label>
+                <select (change)="filterChange($event.target.value)" class="form-control">
+                  <option value="user">Логи пользователя</option>
+                  <option value="admin">Логи администрарота</option>
+                </select>
+              </div>
+         
+         
+        </div>
+      </div>
+
+    <div class="card card-default widget animated" style="animation-delay: -0.07s;">
+
+      <div class="card-body">
+
+
+    <table class="table table-hover"> 
+      <thead> 
+        <tr> 
+            <th>#</th> 
+            <th>Дата</th> 
+            <th>Текст</th> 
+        </tr> 
+      </thead> 
+      <tbody>
+          <ng-container *ngFor=" let key of logsArr;let i=index"> 
+          <tr> 
+            <th scope="row">{{i}}</th> 
+            <td colspan="2">{{key.Text}}</td> 
+          </tr>
+        </ng-container>
+
+      </tbody> 
+    </table>
+
+    </div>
+  </div>
+
+</div><!-- /.col-md-12 -->
+
+

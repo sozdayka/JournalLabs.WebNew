@@ -1,0 +1,28 @@
+@Html.Raw(ViewData["SpaHtml"])
+
+<script src="~/dist/vendor.js" asp-append-version="true"></script>
+@section scripts {
+    <!-- Our webpack bundle -->
+    <script src="~/dist/main-client.js" asp-append-version="true"></script>
+
+      
+    <!-- NPM Packages -->
+    <script src="~/js_modules/jquery/dist/jquery.min.js"></script>
+  
+    <script src="~/js_modules/popper.js/dist/umd/popper.min.js"></script>
+    <script src="~/js_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+
+  
+    <!-- Theme -->
+    <script src="~/assets/js/spark.js"></script>
+  
+    <script>
+    $(document).ready(function () {
+      Spark.init();
+    });
+  
+    </script>
+    <!--script src="~/myjs/test.js?1488" ></script>-->
+}
+
+

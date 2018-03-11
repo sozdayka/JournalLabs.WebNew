@@ -1,0 +1,66 @@
+<div class="col-md-12">
+
+
+
+    <div class="card card-default widget animated" style="animation-delay: -0.07s;">
+        <div class="card-heading">
+          <div class="card-controls">
+            
+          </div>
+          <h3 class="card-title">Добавить студента в группу</h3>
+        </div>
+        <div class="card-body">
+            <div class="form-inline">
+                <label for="inlineFormInputName1">Изменить название группы </label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName1" [(ngModel)]="groupInfo.Name" (blur)="changeGroupName()" >
+            </div>
+            <hr>
+            <div class="form-inline">
+                <label for="inlineFormInputName2">Введите Фио студента </label>
+                <input type="text" class="form-control mb-2 mr-sm-2" id="inlineFormInputName2" [(ngModel)]="student.Student.StudentName">
+
+                <button type="submit" class="btn btn-success mb-2" (click)="addStudent()" >Добавить студента</button>
+            </div>
+         
+         
+        </div>
+      </div>
+
+    <div class="card card-default widget animated" style="animation-delay: -0.07s;">
+
+      <div class="card-body">
+
+
+    <table class="table table-hover"> 
+        <thead> 
+            <tr> 
+              <th>#</th> 
+              <th>Фио студента</th> 
+             
+              <th></th> 
+             
+            </tr> 
+          </thead> 
+          <tbody>
+            <ng-container *ngFor=" let key of groupStudents;let i=index"> 
+              <tr> 
+                <th scope="row">{{i}}</th> 
+                <td><input [(ngModel)]="key.StudentName" class="form-control" (blur)="changeStudentName(key)"  /></td> 
+    
+                
+                <td ><input type="button"  class="btn btn-danger"  (click)="removeStudent(key,i)" value="удалить" /></td>
+              </tr>
+            </ng-container>
+    
+          </tbody> 
+     
+    </table>
+
+    </div>
+  </div>
+
+</div><!-- /.col-md-12 -->
+
+
+
+

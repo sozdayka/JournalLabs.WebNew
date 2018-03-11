@@ -1,0 +1,58 @@
+
+    <div class="splash active">
+      <div class="icon"></div>
+    </div>
+  
+    <div class="wrapper">
+  
+      <header-menu></header-menu>
+  
+      <div class="content">
+        <header class="page-header">
+          <div class="container-fluid">
+            <div class="row">
+              <div class="col-sm-8 page-title-wrapper">
+                <h1 class="page-title">Blank Page</h1>
+                <h2 class="page-subtitle">Nothing to see here</h2>
+              </div>
+              <div class="col-sm-4 d-none d-md-inline-block page-search-wrapper">
+                <search-menu></search-menu>
+              </div>
+            </div>
+          </div>
+        </header>
+        <div class="page-body">
+          <div class="container-fluid">
+            <div class="page-sidebar toggled sidebar">
+              <nav class="sidebar-collapse d-none d-md-block">
+                <i class="ion ion-ios-arrow-forward show-on-collapsed"></i>
+                <i class="ion ion-ios-arrow-back show-on-collapsed"></i>
+              </nav>
+  
+              <nav-menu></nav-menu>
+
+            </div>
+            <div class="page-content">
+              <div class="row">
+                <div class="col-md-12">
+                  <router-outlet></router-outlet>
+                </div><!-- /.col-md-12 -->
+              </div>
+  
+              <footer-menu></footer-menu>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- /#wrapper -->
+
+<!--   
+  
+
+<div class="col-sm-3">
+    <nav-menu></nav-menu>
+</div>
+<div class="col-sm-9 body-content">
+    <router-outlet></router-outlet>
+</div> -->

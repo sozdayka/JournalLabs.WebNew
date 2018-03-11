@@ -1,0 +1,51 @@
+<nav class="navbar navbar-spark navbar-toggleable navbar-expand-md">
+    <div class="container-fluid">
+      <button type="button" class="sidebar-open d-md-none">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand d-none d-md-inline-block">
+        <img src="../../assets/img/logo.png" alt="JournalLabs"></a>
+      <ul class="nav navbar-nav navbar-right be-user-nav" *ngIf="currentRole!=''">
+        <li class="nav-item dropdown">
+          <a href="#" data-toggle="dropdown" role="button" aria-expanded="true" class="nav-link dropdown-toggle">
+            <img src="../../assets/img/avatar-500x500.png" alt="Avatar Users" width="48" height="48" class="avatar img-circle"></a>
+          <div role="menu" class="dropdown-menu">
+            <div class="user-info">
+              <div class="user-name">{{userName}}</div>
+              <div class="user-position {{userIcon}}">{{userRole}}</div>
+            </div>
+            
+
+              <a class="dropdown-item" [routerLink]="['/create-journal']"  *ngIf="currentRole=='Teacher'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}">
+                <span class='glyphicon glyphicon-user'></span> Создать журнал <!--Student journals-->
+              </a>
+
+
+              <a class="dropdown-item" [routerLink]="['/cathedras']" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}">
+                <span class='glyphicon glyphicon-user'></span> Список дисциплин <!--List cathedras-->
+              </a>
+            
+              <a class="dropdown-item" [routerLink]="['/groups']" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}">
+                <span class='glyphicon glyphicon-user'></span> Список групп <!--List groups-->
+              </a>
+              <a class="dropdown-item" [routerLink]="['/view-logs']" *ngIf="currentRole=='Admin'" [routerLinkActive]="['link-active']" [routerLinkActiveOptions]="{exact:true}">
+                <span class='glyphicon glyphicon-user'></span> Список логов <!--List cathedras-->
+              </a>
+          
+
+
+
+            <a *ngIf="currentRole!=''" [routerLinkActive]="['link-active']" (click)="signOut()" class="dropdown-item">
+              <span class="icon mdi mdi-power"></span>
+              Выйти
+            </a>
+          </div>
+        </li>
+      </ul>
+      <a class="navbar-brand d-none d-md-inline-block" *ngIf="currentRole==''" [routerLink]="['/sign-in']">
+          Войти в аккаунт</a>
+      
+  </div>
+</nav>
