@@ -7,7 +7,8 @@ import { LogService } from '../../shared/log.service';
   selector: 'sign-in',
   template: `
   <div class="col-md-4 mx-auto">
-
+  <br>
+  <br>
   <div class="page-brand">
   <img src="../../assets/img/logo-j.png" alt="JournalLabs">
   </div>
