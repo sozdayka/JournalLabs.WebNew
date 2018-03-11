@@ -1,5 +1,5 @@
 {
-  "name": "angular4-aspnetcore-universal",
+  "name": "JournalLabs.WebNew",
   "version": "1.0.0-rc3",
   "scripts": {
     "lint": "tslint -p tsconfig.json",
