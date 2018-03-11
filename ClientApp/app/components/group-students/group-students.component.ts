@@ -1,7 +1,7 @@
 import { Component, Output, Input, OnInit, EventEmitter} from '@angular/core';
 import { Group } from '../../models/Group';
 import { Student } from '../../models/Student';
-import { SubgroupStudents } from '../../models/SubgroupStudents';
+import { SubgroupStudents } from '../../models/subgroupStudents';
 import { AddStudentToJournalViewModel } from '../../models/addStudentToJournalViewModel';
 import { GroupService } from '../../shared/group.service';
 import { StudentService } from '../../shared/student.service';
