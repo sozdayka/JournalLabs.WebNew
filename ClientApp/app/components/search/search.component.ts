@@ -6,6 +6,7 @@ import { StudentJournal } from '../../models/studentJournal';
 import { LogService } from '../../shared/log.service';
 
 import { SearchDataService } from "../../shared/search-data.service";
+import { HeaderService } from "../../shared/header-data.service";
 
 @Component({
     selector: 'search-menu',
@@ -15,6 +16,8 @@ import { SearchDataService } from "../../shared/search-data.service";
 
 export class SearchComponent implements OnInit {
     message:string;
+    messageTitle:string;
+    messageDes:string;
 
     public studentJournals: StudentJournal[] = [];
     public studentName:string="";
@@ -23,6 +26,7 @@ export class SearchComponent implements OnInit {
     constructor(public router: Router,
         private journalService: JournalService,
         private logService: LogService,
+        private data: HeaderService,
         private searchdata: SearchDataService) {
         
       }
@@ -46,6 +50,10 @@ export class SearchComponent implements OnInit {
           
           this.router.navigate(['journal'], { queryParams: { journalId: this.studentJournals[0].JournalId, studentId: this.studentJournals[0].StudentId } });
           this.searchdata.changeMessage(this.studentJournals)
+
+          this.data.currentMessageTitle.subscribe(messageTitle => this.messageTitle = messageTitle,messageDes => this.messageDes = messageDes)
+          this.data.changeMessage("Результат поиска по запросу","Поиск студента: "+this.studentName)
+      
         });
       console.log(this.studentName); 
       }

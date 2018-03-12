@@ -191,7 +191,7 @@
   </div>
 
   
-  <group-students (groupStudents)="StudentsChange($event)" [journalViewModel]="journalViewModel"></group-students>
+  <group-students *ngIf="currentRole=='Teacher'"  (groupStudents)="StudentsChange($event)" [journalViewModel]="journalViewModel"></group-students>
 
 
 
