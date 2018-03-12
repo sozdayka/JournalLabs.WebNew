@@ -187,9 +187,13 @@
         </label>
       </div>
 
-      <button class="btn btn-success btn-lg" (click)="createJournal()">Создать журнал</button><!--Create journal-->
-    </div>
+     </div>
   </div>
+
+  
+  <group-students (groupStudents)="StudentsChange($event)" [journalViewModel]="journalViewModel"></group-students>
+
+
 
   <div *ngIf="currentRole=='Teacher'" class="card card-default widget animated" style="animation-delay: -0.07s;">
     <div class="card-heading">

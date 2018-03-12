@@ -21,7 +21,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     messageTitle:string;
     messageDes:string;
-
+    toggled: string = "toggled";
     // This will go at the END of your title for example "Home - Angular Universal..." <-- after the dash (-)
     private endPageTitle: string = 'Angular Universal and ASP.NET Core Starter';
     // If no Title is provided, we'll use a default one before the dash(-)
@@ -63,6 +63,10 @@ export class AppComponent implements OnInit, OnDestroy {
         // Subscription clean-up
         this.routerSub$.unsubscribe();
     }
+
+    public toggledChange(s:string) {
+        this.toggled=s;
+      }
 
     private _changeTitleOnNavigation() {
 

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component,OnInit } from '@angular/core';
 import { Router, CanActivate, NavigationEnd } from '@angular/router';
 import { JournalService } from "../../shared/journal.service";
 import { Journal } from '../../models/Journal';
@@ -20,8 +20,10 @@ class FilterClass {
 
 
 export class NavMenuComponent implements OnInit {
+
   menulist: boolean = false;
   collapse: string = "collapse";
+
   currentRole: string = "";
 
   public searchText: Journal[];
@@ -38,6 +40,7 @@ export class NavMenuComponent implements OnInit {
     private searchdata: SearchDataService) {
 
   }
+  
   collapseNavbar(): void {
     if (this.collapse.length > 1) {
       this.collapse = "";

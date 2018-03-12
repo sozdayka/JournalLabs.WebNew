@@ -12,6 +12,8 @@ import { LogService } from '../../shared/log.service';
 })
 
 export class HeaderComponent implements OnInit {
+
+    
     public userName:string = "";
     public userIcon:string = "";
     public currentRole:string = "";
@@ -38,6 +40,7 @@ export class HeaderComponent implements OnInit {
           }
 
     }
+
     signOut() {
         localStorage.removeItem('Role');
         localStorage.removeItem('TeacherId');
