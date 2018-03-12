@@ -10,14 +10,14 @@
     <div class="card-body">
 
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Введите название предмета</label>
-        <div class="col-10">
+        <label for="example-text-input" class="col-4 col-form-label">Введите название предмета</label>
+        <div class="col-8">
           <input class="form-control" type="text" [(ngModel)]="createJournalViewModel.LessonName" name="LessonName">
         </div>
       </div>
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Введите название группы</label>
-        <div class="col-10">
+        <label for="example-text-input" class="col-4 col-form-label">Введите название группы</label>
+        <div class="col-8">
           <input class="form-control" type="text" [(ngModel)]="createJournalViewModel.GroupName" name="GroupName">
         </div>
       </div>
@@ -30,9 +30,9 @@
     <div class="card-body">
 
       <div class="form-group row">
-        <label for="example-text-input" class="col-2 col-form-label">Введите количество видов работ</label>
-        <div class="col-10">
-          <input class="form-control"  type="number" [(ngModel)]="labBlockCount" (keyup)="fillLabBlockSettingsArray()" name="LabBlocksCount" >
+        <label for="example-text-input" class="col-4 col-form-label">Введите количество видов работ</label>
+        <div class="col-8">
+          <input class="form-control" min="1"  type="number" [(ngModel)]="labBlockCount" (keyup)="fillLabBlockSettingsArray()" name="LabBlocksCount" >
         </div>
       </div>
       <table *ngIf="createJournalViewModel.LabBlocksSettings.length!=0" class="table table-hover">
