@@ -209,7 +209,14 @@ export class JournalComponent implements OnInit {
       this.getLastModify();
 
       this.getStatisticArray();
+
+console.log(this.headerKindOfWork);
+
     });
+  }
+  public colSpan = 5;
+  public retcolspan(f:boolean){
+    return f?10:5;
   }
   public getStudentJournal(journalId: string, studentId: string) {
     this.journalService.getJournalByIdAndStudentId(journalId, studentId).subscribe(response => {

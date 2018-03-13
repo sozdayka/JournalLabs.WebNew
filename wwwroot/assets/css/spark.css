@@ -3749,3 +3749,18 @@ body.right-to-left {
 .form-control{
   font-weight: bold;
 }
+
+.cart-lab .card-border .card-body {
+  padding: 0 15px;
+}
+.btn.btn-danger.btn-xs{
+  padding: 6px 12px;
+}
+
+#tablejournal th{
+  white-space: nowrap;
+}
+
+.table tfoot td, .table tfoot th{
+  border:none;
+}

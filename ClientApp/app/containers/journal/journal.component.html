@@ -27,9 +27,166 @@
     </div>
   </div>
 
+  <div *ngIf="journalViewModel!=null" class="card card-default widget animated" style="animation-delay: -0.07s;">
+      <div class="card-heading">
+        <div class="card-controls">
+          
+        </div>
+       
+      </div>
+      
+      <div class="card-body">
+    
+    <div class="panel panel-primary">
+    
+        <div class="panel-body">
+            <div class="table-responsive" >
+                <table id="tablejournal" class="table table-bordered table-hover">
+                  <thead>
+  <tr>
+    <td colspan="3"></td>
+      
+        <ng-container *ngFor=" let key of journalViewModel.KindsOfWorkForJournal">
+         
+    <td [colSpan]="retcolspan(key.isSecondBlockVisible)">
+        <div class="card card-default card-border no-shadow cart-lab" style="animation-delay: -0.06s;">
+          <div class="card-heading">
+                  <div class="card-controls">
+                  <button class="btn btn-danger btn-xs" (click)="removeKindOfWork(key.Id)"><i class="ion-trash-a"></i></button>
+                    
+                  </div>
+                
+          </div>
+          <div class="card-body">
+          <div class="row">
+          <div class="col-lg-6">             
+            <div class="form-group"><label>Название вида работы </label>
+            
+              <input type="text" class="form-control" [(ngModel)]="key.NameKindOfWork" (blur)="changeKindOfWorkName(key)" [readonly]="studentId" >
+            </div>
+                              
+            <div class="form-group"><label>Deadline: <b>{{key.Deadline}}</b></label></div>
+          </div> 
+          <div class="col-lg-6">                  
+            <div class="checkbox"><label><input type="checkbox" [(ngModel)]="key.IsKindOfWorkVisible" (ngModelChange)="changeVisibleKindOfWork(key.Id,$event)">Отображать вид работы для ассистента</label></div>
+            <div class="checkbox"><label><input type="checkbox" [(ngModel)]="key.IsVisibleToStudent" (ngModelChange)="changeVisibleKindOfWorkForStudent(key.Id,$event)">Отображать вид работы для студента</label></div>
+            <div class="checkbox"><label><input type="checkbox" [(ngModel)]="key.isSecondBlockVisible" (ngModelChange)="changeVisibleSecondBlock(key,$event)">Перездача</label></div>
+          </div>
+          </div>
+          </div>
+        </div>
+    </td>
+    <td><div class="checkbox"><label><input type="checkbox" [(ngModel)]="isTotal" /> Блок ведомости</label></div></td>
+  <td></td>
+        </ng-container>
+  
+  
+    </tr>
+  
+  
+            <tr>
+                <th><i class="ion-eye-disabled"></i></th>
+                <th><i class="ion-trash-a"></i></th>
+                <th>ФИО стедента</th>
+              <ng-container *ngFor=" let key of headerKindOfWork">
+              <th *ngIf="key.KindOfMark == kindOfMark.FirstMark"> </th>
+              <th *ngIf="key.KindOfMark == kindOfMark.FirstMark"> </th>
+                <th *ngIf="key.KindOfMark == kindOfMark.FirstMark">Дата сдачи</th>
+                <th *ngIf="key.KindOfMark == kindOfMark.FirstMark">Оценка при первой сдаче</th>
+                <th *ngIf="key.KindOfMark == kindOfMark.FirstMark">ФИО преподавателя</th>
+              <th *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.isVisible"> </th>
+              <th *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.isVisible"> </th>
+                <th *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.isVisible">Дата пересдачи</th>
+                <th *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.isVisible">Оценка при пересдаче</th>
+                <th *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.isVisible">ФИО преподавателя</th>
+              
+              </ng-container>
+                <th> </th>
+                <th> </th>
+                <th>Итоговая оценка</th>
+                <th>Описание</th>
+                <th *ngIf="isTotal">Оценка</th>
+                <th *ngIf="isTotal">ЕКТС</th>
+                <th *ngIf="isTotal">Дата</th>
+  
+  
+  
+  
+  
+            </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngFor=" let key2 of journalViewModel.StudentResultForJournal;let i = index">
+            <tr>
+                <td *ngIf="currentRole=='Teacher'">
+                  <input title="Скрыть студента" type="checkbox" [(ngModel)]="key2.Remark.IsHideStudent" (ngModelChange)="changeRemark(key2.Remark)" />
+                </td>
+                <td *ngIf="currentRole=='Teacher'">
+                  <button title="Удалить студента" class="btn btn-danger btn-xs" (click)="removeStudent(key2.StudentLabBlocks[0].StudentId)" ><i class="ion-trash-a"></i></button>
+                </td>   
+                <td>
+                  <input style="min-width: 260px;" class="form-control col-lg-4" [(ngModel)]="key2.StudentInfo.StudentName" (blur)="changeUserName(key2.StudentInfo)" [disabled]="studentId" />
+                </td>
+                    
+              <ng-container *ngFor=" let key of key2.StudentLabBlocks;let ii = index">
+                <td *ngIf="key.KindOfMark == kindOfMark.FirstMark"></td>
+                <td *ngIf="key.KindOfMark == kindOfMark.FirstMark"></td>  
+                    <!-- [ngClass]="{'bordered': journalViewModel.KindsOfWorkForJournal[ii].Deadline > key.Date}" -->
+                    <td *ngIf="key.KindOfMark == kindOfMark.FirstMark" [ngStyle]="{'color': onBlurMethod(journalViewModel.KindsOfWorkForJournal, key)}" ><input [(ngModel)]="key.Date" (blur)="changeLabBlock(key2,key)" [disabled]="studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" />
+                    </td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.FirstMark && key.IsBoolField==false"><input [(ngModel)]="key.Mark" (ngModelChange)="key.Date=currentDate" (blur)="changeLabBlock(key2,key)" [disabled]="studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" type="number" [ngStyle]="{'background-color': key.Color != '' && !studentId ? key.Color : 'white'}" step="0.1" /></td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.FirstMark && key.IsBoolField==true"><input [(ngModel)]="key.Mark" (ngModelChange)="key.Date=currentDate;changeLabBlock(key2,key,$event)" [disabled]="studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" type="checkbox" /></td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.FirstMark"> <input [(ngModel)]="key.MarkTeacherName" disabled /></td>
+                <td *ngIf="key.IsSecondBlock"></td>
+                <td *ngIf="key.IsSecondBlock"></td>    
+                    <td *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.IsSecondBlock"><input [(ngModel)]="key.Date" (click)="key.Date=currentDate" (blur)="changeLabBlock(key2,key)" [disabled]="studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" /></td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.IsSecondBlock && key.IsBoolField==false"><input [(ngModel)]="key.Mark" (ngModelChange)="key.Date=currentDate" (blur)="changeLabBlock(key2,key)" [disabled]="studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" type="number" [ngStyle]="{'background-color': key.Color != '' && !studentId ? key.Color : 'white'}" step="0.1" /></td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.IsSecondBlock && key.IsBoolField==true"><input [(ngModel)]="key.Mark" (ngModelChange)="key.Date=currentDate;changeLabBlock(key2,key,$event)" [disabled]=" studentId || key.MarkTeacherName!=null && key.MarkTeacherId != currentTeacherId && currentRole!='Teacher'" type="checkbox" /></td>
+                    <td *ngIf="key.KindOfMark == kindOfMark.SecondMark && key.IsSecondBlock"><input [(ngModel)]="key.MarkTeacherName" disabled /></td>
+              </ng-container>
+  
+  
+                <td></td>
+                <td></td>
+           
+                <td><input value="{{key2.TotalMark}}" [disabled]="studentId" /></td>
+                <td *ngIf="key2.Remark!=null"><input [(ngModel)]="key2.Remark.RemarkText" (blur)="changeRemark(key2.Remark)" [disabled]="studentId" /></td>
+                <td *ngIf="isTotal"><input value="{{totalMarkInfo(key2.TotalMark,journalViewModel.JournalModel.IsExam)}}" [disabled]="studentId" /></td>
+                <td *ngIf="isTotal">{{totalMarkEKTCInfo(key2.TotalMark)}}</td>
+                <td *ngIf="isTotal">{{currentDate}}</td>
+  
+            </tr>
+            </ng-container>
+        </tbody>
+        <ng-container *ngIf="currentRole=='Teacher'">
+          <tfoot>
+              <td colspan="3"></td>
+      
+              <ng-container *ngFor=" let key of journalViewModel.KindsOfWorkForJournal">
+               
+          <td [colSpan]="retcolspan(key.isSecondBlockVisible)" *ngIf="findObjectByKey(arr,'key',key.Id)">
+                  Изменено: {{findObjectByKey(arr,"key",key.Id).val}}
+          </td>
+        <td></td>
+        <td></td>
+              </ng-container>
+        
+              
+           
+          </tfoot>
+          </ng-container>
+  
+                </table>
+            </div>
+            
+        </div>
+    </div>
+  </div>
+  </div>
+  
+  
 
-
-<div *ngIf="journalViewModel!=null" class="card card-default widget animated" style="animation-delay: -0.07s;">
+<div *ngIf="journalViewModel!=null" class="card card-default widget animated" style="display:none;animation-delay: -0.07s;">
   <div class="card-heading">
     <div class="card-controls">
       
